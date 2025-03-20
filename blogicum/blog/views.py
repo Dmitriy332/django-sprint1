@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import Http404
 
 
 posts = [
@@ -44,6 +45,8 @@ posts = [
     },
 ]
 
+id_in_posts = [element['id'] for element in posts]
+
 
 def index(request):
     reversed_posts = list(reversed(posts))
@@ -51,7 +54,10 @@ def index(request):
 
 
 def post_detail(request, id):
-    return render(request, 'blog/detail.html', context={"post": posts[id]})
+    if id in id_in_posts:
+        return render(request, 'blog/detail.html', context={"post": posts[id]})
+    else:
+        raise Http404('Такой страницы не существует')
 
 
 def category_posts(request, category_slug):

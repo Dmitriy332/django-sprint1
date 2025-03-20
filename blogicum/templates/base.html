@@ -1,4 +1,3 @@
-{% extends "base.html" %}
 {% load static %}
 <!DOCTYPE html> 
 <html lang="ru"> 
@@ -10,7 +9,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'img/fav/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'img/fav/favicon-16x16.png' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <title>Лента записей</title>
+    <title>{% block title %} {% endblock %}</title>
   </head>
   <body>	   
     <header>
@@ -41,8 +40,9 @@
       </nav> 
     </header>
     <main>
+        {% block main %}
       <div class="container py-5">
-        <h1>Лента записей</h1>
+        <h1>{% block name %} {% endblock %}</h1>
         <hr>
         {% for post in post %}
         <article>
@@ -59,6 +59,7 @@
         {% endfor %}
         <hr>              
       </div>
+      {% endblock %}
     </main>
     <footer class="border-top text-center py-3">
       <p>© Блогикум</p>    
